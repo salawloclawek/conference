@@ -1,0 +1,6 @@
+.page-header
+  %h1 Konferencje
+
+.row
+  - @meets.each do |meet|
+    .col-xs-6.text-center{style: 'padding: 50px;'}= link_to meet.name, meet_url(meet), class: 'btn btn-primary btn-lg'
