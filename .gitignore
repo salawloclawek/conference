@@ -18,3 +18,4 @@
 
 /config/yetting.yml
 /config/database.yml
+/db/seeds.rb
