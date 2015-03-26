@@ -15,7 +15,7 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'ruby-asterisk'
 gem 'dalli'
-
+gem 'yettings'
 
 
 group :development, :test do
