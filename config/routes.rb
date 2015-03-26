@@ -18,6 +18,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users do
+    collection do
+      get :set_participate
+    end
+  end
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

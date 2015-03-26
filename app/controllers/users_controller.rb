@@ -11,4 +11,9 @@ class UsersController < ApplicationController
     render text: 'ok', layout: false
   end
 
+  def set_participate
+    UserWrapper.set_participate(params)
+    render text: '1'
+  end
+
 end

@@ -1,25 +1,32 @@
 class MeetsWrapper < AmiWrapper
 
   def self.users(meet)
-    response = connection.command("meetme list #{meet.identifier}")
+    response = connection.command("confbridge list #{meet.identifier}")
     parse_users(response)
   end
 
   def self.mute(conference, user)
-    connection.command("meetme mute #{conference} #{user}")
+    connection.command("confbridge mute #{conference} #{user}")
   end
 
   def self.unmute(conference, user)
-    connection.command("meetme unmute #{conference} #{user}")
+    #connection.command("confbridge mute #{conference} participants")
+    connection.command("confbridge mute #{conference} all")
+    connection.command("confbridge unmute #{conference} #{user}")
   end
 
   protected
 
   def self.parse_users(response)
-    parsed = select_lines(response.data, 'ActionID', 'users in that conference', 'No active')
+    parsed = select_lines(response.data, '==', '--END COMMAND--', 'No conference')
     parsed = parsed.map do |user|
-      data = user.split('#:')[1].split(' ')
-      UserWrapper.new(data[1], data[0], user.include?('Muted'))
+      data = user.split(" ")
+      if data.size == 5
+        UserWrapper.new(data.last, data.first, false)
+      else
+        UserWrapper.new(data.last, data.first, data[1].to_s.include?('m'))
+      end
+
     end
   end
 

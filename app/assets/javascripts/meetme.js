@@ -32,6 +32,9 @@ var MeetMe = {
             success: function(data){
                 div.replaceWith(data);
                 _this.startLoop();
+            },
+            error: function(){
+                _this.startLoop();
             }
         })
     },
@@ -43,7 +46,7 @@ var MeetMe = {
             MeetMe.updateShow();
         }
         else {
-            _this.timer = setTimeout(function(){MeetMe.updateShow(); }, 5000);
+            _this.timer = setTimeout(function(){MeetMe.updateShow(); }, 1000);
         }
 
     },

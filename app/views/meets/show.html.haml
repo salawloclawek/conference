@@ -5,14 +5,19 @@
       %h1= @meet.name
 
     - @meet.users.each do |user|
-      .well
-        = user.name
+      .well.clearfix
+        %b= user.name
         - if user.mute_status
-          .label.label-danger Wyciszony
-          = link_to 'Aktywuj', unmute_meet_user_path(meet_id: @meet.identifier, id: user.identifier_in_conf), class: 'btn btn-xs btn-primary pull-right mic-set'
+          = image_tag('mute-icon.png', width: 40, height: 40)
+          = link_to 'Aktywuj', unmute_meet_user_path(meet_id: @meet.identifier, id: user.identifier_in_conf), class: 'btn btn-xs btn-success pull-right mic-set'
         - else
-          .label.label-success Aktywny
-          = link_to 'Wycisz', mute_meet_user_path(meet_id: @meet.identifier, id: user.identifier_in_conf), class: 'btn btn-xs btn-primary pull-right mic-set'
+          = image_tag('sound-icon.png', width: 40, height: 40)
+          = link_to 'Wycisz', mute_meet_user_path(meet_id: @meet.identifier, id: user.identifier_in_conf), class: 'btn btn-warning pull-right mic-set'
+        - if user.participate
+          - if user.participate == 'cancel'
+            = image_tag('hand-x.png', width: 40, height: 40)
+          - else
+            = image_tag('hand.png', width: 40, height: 40)
 
   - else
     .page-header

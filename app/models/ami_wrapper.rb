@@ -14,7 +14,7 @@ class AmiWrapper
   end
 
   def self.create_connection
-    @@ami = RubyAsterisk::AMI.new("192.168.0.4", 5038)
+    @@ami = RubyAsterisk::AMI.new("192.168.0.11", 5038)
     @@ami.login("admin", "Zdrojowa13")
   end
 

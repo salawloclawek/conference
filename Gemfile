@@ -15,6 +15,7 @@ gem "haml-rails", "~> 0.9"
 gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 gem 'ruby-asterisk'
+gem 'dalli'
 
 
 
