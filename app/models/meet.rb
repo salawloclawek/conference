@@ -1,7 +1,7 @@
 class Meet < ActiveRecord::Base
 
   def to_param
-    identifier
+    phone_number
   end
 
   def users(reload=false)

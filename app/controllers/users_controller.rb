@@ -13,7 +13,12 @@ class UsersController < ApplicationController
 
   def set_participate
     UserWrapper.set_participate(params)
-    render text: '1'
+    render text: '1', layout: false
+  end
+
+  def bridge
+    render text: 'wschod_user', layout: false
+    #wschod_user_no_pin
   end
 
 end

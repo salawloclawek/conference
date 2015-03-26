@@ -11,21 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320133112) do
+ActiveRecord::Schema.define(version: 20150326212854) do
+
+  create_table "key_maps", force: :cascade do |t|
+    t.integer "phone_id"
+    t.integer "digit"
+    t.string  "name"
+  end
 
   create_table "meets", force: :cascade do |t|
-    t.string "identifier"
     t.string "name"
+    t.string "phone_number"
+    t.string "asterisk_user_profile"
+    t.string "sip_number"
+    t.string "web_pin"
   end
 
   create_table "phones", force: :cascade do |t|
-    t.integer "user_id"
-    t.string  "identifier"
+    t.integer "meet_id"
+    t.string  "phone_number"
+    t.string  "name"
+    t.boolean "auto_join"
+    t.boolean "admin"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.boolean "admin", default: false
-  end
+  add_index "phones", ["phone_number"], name: "index_phones_on_phone_number", unique: true
 
 end

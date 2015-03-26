@@ -1,4 +1,4 @@
-class UserWrapper
+class PhoneWrapper
 
   attr_accessor :name, :phone, :identifier_in_conf, :mute_status, :participate
 
