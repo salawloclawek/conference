@@ -1,35 +1,41 @@
 class PhoneWrapper
 
-  attr_accessor :name, :phone, :identifier_in_conf, :mute_status, :participate
+  attr_accessor :name, :phone, :phone_object, :identifier_in_conf, :mute_status
 
 
   def self.set_participate(params)
-    if params[:key] == '1'
-      Rails.cache.write(params[:callerid], true, expires_in: 8)
+
+    digit = params[:key].to_i
+    callerid = MeetsWrapper.slice_caller_id(params[:callerid])
+
+    if digit > 0
+      key = "#{callerid}#{digit}"
+      Rails.cache.write(key, true, expires_in: 8)
     else
-      if Rails.cache.read(params[:callerid])
-        Rails.cache.write(params[:callerid], 'cancel', expires_in: 5)
-      else
-        Rails.cache.write(params[:callerid], false, expires_in: 5)
+      (1..4).to_a.each do |index|
+        key = "#{callerid}#{index}"
+        if Rails.cache.read(key)
+          Rails.cache.write(key, 'cancel', expires_in: 5)
+        end
       end
     end
+
   end
 
 
-  def initialize(identifier, identifier_in_conf, mute_status)
+  def initialize(callerid, identifier_in_conf, mute_status)
 
     self.identifier_in_conf = identifier_in_conf
     self.mute_status = mute_status
 
-    phone = Phone.where(identifier: identifier).first
+    phone = Phone.phone_number(callerid).first
     if phone.present?
-      self.phone = phone.identifier
-      self.name = phone.user.name
-      self.participate = Rails.cache.read(identifier)
+      self.phone_object = phone
+      self.phone = phone.phone_number
+      self.name = phone.name
     else
-      self.phone = identifier
-      self.name = identifier
-      self.participate = false
+      self.phone = callerid
+      self.name = callerid
     end
 
   end

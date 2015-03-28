@@ -1,0 +1,22 @@
+.row
+  .col-xs-12.col-sm-8.col-md-6
+    = simple_form_for [current_meet, @phone], html: { id: 'phone-form' } do |f|
+
+      = f.input :name, input_html: { id: 'phone-name' }
+      = f.input :phone_number
+      = f.input :auto_join
+
+      %h3.mt40 Ustawienia kliknięć klawiatury
+
+      = f.simple_fields_for :key_maps do |key_f|
+        .well.clearfix
+          = key_f.input :id, as: :hidden
+          = key_f.input :digit, as: :hidden
+          = key_f.input :name, label: "Gdy '#{key_f.object.digit}' zgłasza się:", input_html: { class: 'map-key-name-input' }
+          %p
+            - if key_f.index == 0
+              = link_to 'Wstaw Właściciela Numeru', '#', class: 'btn btn-xs btn-success copy-phone-name'
+            = link_to 'wyczyść', '#', class: 'btn btn-xs btn-danger pull-right clear-map-key-name'
+
+      .form-actions.mt30.mb30
+        = f.submit 'Zapisz', class: 'btn btn-primary ml30'

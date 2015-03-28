@@ -1,0 +1,28 @@
+.page-header
+  %h1
+    Telefony
+    = link_to 'Dodaj Nowy', new_meet_phone_path(current_meet), class: 'btn btn-success pull-right'
+
+%table.table.table-striped
+
+  %tr
+    %th Imię i Nazwisko
+    %th Numer Telefonu
+    %th PIN
+    %th Klawiatura
+    %th Akcje
+
+  - @phones.each do |phone|
+    %tr
+      %td= phone.name
+      %td= phone.phone_number
+      %td= phone.auto_join ? 'Nie' : 'Wymagany'
+      %td
+        - phone.key_maps.each do |key_map|
+          - if key_map.name.present?
+            %strong= key_map.digit
+            %span.ml10= key_map.name
+            %br
+      %td
+        = link_to 'edycja', edit_meet_phone_path(current_meet, phone), class: 'btn btn-primary'
+        = link_to 'usuń', meet_phone_path(current_meet, phone), class: 'btn btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie telefon #{phone.phone_number}. Potwierdź." }

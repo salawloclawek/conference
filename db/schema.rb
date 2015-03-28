@@ -22,9 +22,10 @@ ActiveRecord::Schema.define(version: 20150326212854) do
   create_table "meets", force: :cascade do |t|
     t.string "name"
     t.string "phone_number"
-    t.string "asterisk_user_profile"
+    t.string "asterisk_user_profile_pre"
     t.string "sip_number"
     t.string "web_pin"
+    t.string "token"
   end
 
   create_table "phones", force: :cascade do |t|

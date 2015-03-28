@@ -1,6 +1,27 @@
-.page-header
-  %h1 Konferencje
-
 .row
-  - @meets.each do |meet|
-    .col-xs-6.text-center{style: 'padding: 50px;'}= link_to meet.name, meet_url(meet), class: 'btn btn-primary btn-lg'
+  .col-xs-12.col-sm-6
+
+    .well
+
+      %h3 Panel transmisji
+      %hr
+
+      = simple_form_for :session, url: sessions_path, html: { autocomplete: 'off' } do |f|
+
+        = f.input :meet_id, collection: @meets.all, as: :radio_buttons, required: false, label: 'Transmisja'
+
+        = f.input :web_pin, input_html: { autocomplete: 'off', class: 'w200' }, required: false, label: 'Web Pin'
+
+        .form-actions.mt30.mb30
+          = f.submit 'Zaloguj', class: 'btn btn-primary ml30'
+
+  .col-xs-12.col-sm-5.col-sm-offset-1
+
+
+
+    %h3 Sprawdź kto się zgłasza
+    %hr
+
+    %ul.nav.nav-stacked
+      - @meets.each do |meet|
+        %li= link_to "#{meet.name} &raquo;".html_safe, p_meet_path(meet)

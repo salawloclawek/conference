@@ -1,7 +1,7 @@
 class MeetsWrapper < AmiWrapper
 
   def self.users(meet)
-    response = connection.command("confbridge list #{meet.identifier}")
+    response = connection.command("confbridge list #{meet.phone_number}")
     parse_users(response)
   end
 
@@ -11,20 +11,44 @@ class MeetsWrapper < AmiWrapper
 
   def self.unmute(conference, user)
     #connection.command("confbridge mute #{conference} participants")
-    connection.command("confbridge mute #{conference} all")
+    connection.command("confbridge mute #{conference} all") # admin too
+
     connection.command("confbridge unmute #{conference} #{user}")
   end
 
-  protected
+  def self.kick(conference, user)
+    connection.command("confbridge kick #{conference} #{user}")
+  end
+
+  def self.kick_all(conference)
+    connection.command("confbridge kick #{conference} all")
+  end
+
+  def self.slice_caller_id(original)
+    original.size > 9 ? original.slice(0..-10) : original
+  end
+
+  def self.user_bridge(params)
+
+    phone = Phone.phone_number(slice_caller_id(params[:callerid])).first
+    meet = Meet.sip_number(params[:did]).first
+
+    if phone.present? and phone.auto_join and meet.id == phone.meet_id
+      'user_no_pin'
+    else
+      "#{meet.asterisk_user_profile_pre}_user"
+    end
+
+  end
 
   def self.parse_users(response)
     parsed = select_lines(response.data, '==', '--END COMMAND--', 'No conference')
     parsed = parsed.map do |user|
       data = user.split(" ")
       if data.size == 5
-        UserWrapper.new(data.last, data.first, false)
+        PhoneWrapper.new(slice_caller_id(data.last), data.first, false)
       else
-        UserWrapper.new(data.last, data.first, data[1].to_s.include?('m'))
+        PhoneWrapper.new(slice_caller_id(data.last), data.first, data[1].to_s.include?('m'))
       end
 
     end
