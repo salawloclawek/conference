@@ -11,7 +11,7 @@ class Phone < ActiveRecord::Base
   accepts_nested_attributes_for :key_maps
 
   validates :name, presence: true
-  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { is: 9 }, uniqueness: true
+  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { is: 9, unless: :admin }, uniqueness: true
 
   before_create :set_admin
 
