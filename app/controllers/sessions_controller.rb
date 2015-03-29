@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       session[:meet] = meet.token
       redirect_to meet_path(meet)
     else
-      redirect_to :back, alert: 'Niepoprawny Pin'
+      redirect_to :back, alert: 'Niepoprawny Pin Lub Brak Transmisji.'
     end
   end
 

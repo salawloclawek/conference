@@ -1,0 +1,14 @@
+.row
+  .col-xs-12.col-sm-8.col-md-6
+    = simple_form_for [:admin, @meet], html: {  } do |f|
+
+      = f.input :name
+      = f.input :sip_number
+      = f.input :phone_number
+      = f.input :admin_id, collection: Phone.admin
+      = f.input :web_pin
+      = f.input :pin
+      = f.input :active
+
+      .form-actions.mt30.mb30
+        = f.submit 'Zapisz', class: 'btn btn-primary ml30'

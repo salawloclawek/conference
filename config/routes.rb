@@ -26,11 +26,31 @@ Rails.application.routes.draw do
       delete :kick
     end
 
-    collection do
-      get :set_participate
-      get :bridge
+  end
+
+  namespace :asterisk do
+
+    resources :meets, path: 'transmisje' do
+      collection do
+        get :pin
+        get :phone_number
+        get :exists
+        get :internal_user_profile
+      end
     end
 
+    resources :phones, path: 'telefony' do
+      collection do
+        get :menu_callback
+      end
+    end
+
+  end
+
+  namespace :admin do
+    resources :meets, path: 'transmisje' do
+
+    end
   end
 
 end

@@ -3,7 +3,7 @@ class MeetsController < ApplicationController
   before_action :require_meet!, only: [ :show, :kick_all ]
 
   def index
-    @meets = Meet.all
+    @meets = Meet.active
   end
 
   def p

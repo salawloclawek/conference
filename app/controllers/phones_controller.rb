@@ -1,6 +1,6 @@
 class PhonesController < ApplicationController
 
-  before_action :require_meet_params!, only: [ :index, :new, :create, :edit, :update, :destroy, :mute, :unmute, :kick ]
+  before_action :require_meet_params!
 
   def index
     @phones = current_meet.phones.participant.includes(:key_maps)
@@ -36,9 +36,9 @@ class PhonesController < ApplicationController
   def destroy
     @phone = current_meet.phones.phone_number(params[:id]).first
     if @phone.destroy
-      redirect_to meet_phones_path(current_meet), notice: "Pomyślnie usunięto #{@phone.phone_number}"
+      redirect_to meet_phones_path(current_meet), notice: "Pomyślnie usunięto #{@phone.phone_number}."
     else
-      redirect_to meet_phones_path(current_meet), alert: "Nie udało się usunąć: #{@phone.phone_number}"
+      redirect_to meet_phones_path(current_meet), alert: "Nie udało się usunąć: #{@phone.phone_number}."
     end
   end
 
@@ -55,15 +55,6 @@ class PhonesController < ApplicationController
   def kick
     MeetsWrapper.kick(params[:meet_id], params[:id])
     render text: 'ok', layout: false
-  end
-
-  def set_participate
-    PhoneWrapper.set_participate(params)
-    render text: '1', layout: false
-  end
-
-  def bridge
-    render text: MeetsWrapper.user_bridge(params), layout: false
   end
 
   protected

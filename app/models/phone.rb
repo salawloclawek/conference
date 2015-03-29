@@ -7,6 +7,7 @@ class Phone < ActiveRecord::Base
 
   belongs_to :meet
   has_many :key_maps, dependent: :destroy
+  has_many :admin_meets, class_name: 'Meet', foreign_key: 'admin_id'
 
   accepts_nested_attributes_for :key_maps
 

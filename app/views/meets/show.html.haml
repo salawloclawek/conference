@@ -4,11 +4,16 @@
     .page-header
       %h3
         = current_meet.name
+        %br
+        %small= current_meet.sip_number
         = link_to 'Rozłącz Wszystkich', kick_all_meet_path(current_meet), class: 'btn btn-xs btn-danger pull-right safe-delete', data: { delete_text_info: 'Potwierdź zakończenie transmisji.', confirm_remote: true }
 
     - current_meet.users.each do |user|
       .well.clearfix
         %b= user.name
+        - unless user.admin
+          .label.label-success
+            = inflector_person(user.together_count)
 
         = link_to 'Rozłącz', kick_phone_path(meet_id: current_meet, id: user.identifier_in_conf), class: 'btn btn-xs btn-danger pull-right safe-delete ml40', data: { delete_text_info: "Potwierdź rozłączenie: #{user.name}", confirm_remote: true }
 

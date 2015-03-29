@@ -1,0 +1,2 @@
+module Asterisk::MeetsHelper
+end

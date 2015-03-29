@@ -10,7 +10,7 @@
 
         = f.input :meet_id, collection: @meets.all, as: :radio_buttons, required: false, label: 'Transmisja'
 
-        = f.input :web_pin, input_html: { autocomplete: 'off', class: 'w200' }, required: false, label: 'Web Pin'
+        = f.input :web_pin, as: :password, input_html: { autocomplete: 'off', class: 'w200' }, required: false, label: 'Web Pin'
 
         .form-actions.mt30.mb30
           = f.submit 'Zaloguj', class: 'btn btn-primary ml30'

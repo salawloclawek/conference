@@ -1,0 +1,37 @@
+.page-header
+  %h1
+    Transmisje
+    = link_to 'Dodaj Nową', new_admin_meet_path, class: 'btn btn-success pull-right'
+
+%table.table.table-striped
+
+  %tr
+    %th Nazwa
+    %th Numery
+    %th Autoryzacja
+    %th Status
+    %th Akcje
+
+  - @meets.each do |meet|
+    %tr
+      %td= meet.name
+      %td
+        Publiczny Nr:
+        %strong= meet.sip_number
+        %br
+        Wewnętrzny Nr:
+        %strong= meet.phone_number
+        %br
+        Admin:
+        - if meet.admin.present?
+          %strong= "#{meet.admin.name} (#{meet.admin.phone_number})"
+      %td
+        Web Pin:
+        %strong= meet.web_pin
+        %br
+        Pin:
+        %strong= meet.pin
+      %td= meet.active ? 'Włączona' : 'Wyłączona'
+      %td
+        = link_to 'edycja', edit_admin_meet_path(meet), class: 'btn btn-xs btn-primary'
+        = link_to 'usuń', admin_meet_path(meet), class: 'btn btn-xs btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie transmisję #{meet.name}. Potwierdź." }

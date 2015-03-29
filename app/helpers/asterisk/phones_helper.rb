@@ -1,0 +1,2 @@
+module Asterisk::PhonesHelper
+end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326212854) do
+ActiveRecord::Schema.define(version: 20150328174342) do
 
   create_table "key_maps", force: :cascade do |t|
     t.integer "phone_id"
@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(version: 20150326212854) do
   end
 
   create_table "meets", force: :cascade do |t|
-    t.string "name"
-    t.string "phone_number"
-    t.string "asterisk_user_profile_pre"
-    t.string "sip_number"
-    t.string "web_pin"
-    t.string "token"
+    t.string  "name"
+    t.string  "phone_number"
+    t.string  "sip_number"
+    t.string  "web_pin"
+    t.string  "token"
+    t.string  "pin"
+    t.boolean "active"
+    t.integer "admin_id"
   end
 
   create_table "phones", force: :cascade do |t|

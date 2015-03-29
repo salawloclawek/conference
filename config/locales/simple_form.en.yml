@@ -11,6 +11,14 @@ en:
     error_notification:
       default_message: "Please review the problems below:"
     labels:
+      meet:
+        name: Nazwa
+        phone_number: Wewnętrzny Nr
+        sip_number: Publiczny Nr
+        admin_id: Admin
+        web_pin: Web Pin
+        pin: Pin
+        active: Aktywna
       phone:
         phone_number: Numer Telefonu
         name: Imię i Nazwisko
