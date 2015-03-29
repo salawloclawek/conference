@@ -6,7 +6,7 @@
       %h3 Panel transmisji
       %hr
 
-      = simple_form_for :session, url: sessions_path, html: { autocomplete: 'off' } do |f|
+      = simple_form_for :session, url: sessions_url, html: { autocomplete: 'off' } do |f|
 
         = f.input :meet_id, collection: @meets.all, as: :radio_buttons, required: false, label: 'Transmisja'
 
@@ -24,4 +24,4 @@
 
     %ul.nav.nav-stacked
       - @meets.each do |meet|
-        %li= link_to "#{meet.name} &raquo;".html_safe, p_meet_path(meet)
+        %li= link_to "#{meet.name} &raquo;".html_safe, p_meet_url(meet)

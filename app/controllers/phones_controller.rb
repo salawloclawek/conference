@@ -14,7 +14,7 @@ class PhonesController < ApplicationController
   def create
     @phone = Phone.new(phone_attributes)
     if @phone.save
-      redirect_to meet_phones_path(current_meet), notice: 'Pomyślnie dodano nowy numer telefonu.'
+      redirect_to meet_phones_url(current_meet), notice: 'Pomyślnie dodano nowy numer telefonu.'
     else
       render :new
     end
@@ -27,7 +27,7 @@ class PhonesController < ApplicationController
   def update
     @phone = current_meet.phones.phone_number(params[:id]).first
     if @phone.update(phone_attributes)
-      redirect_to meet_phones_path(current_meet), notice: 'Pomyślnie zmieniono dane.'
+      redirect_to meet_phones_url(current_meet), notice: 'Pomyślnie zmieniono dane.'
     else
       render :edit
     end
@@ -36,9 +36,9 @@ class PhonesController < ApplicationController
   def destroy
     @phone = current_meet.phones.phone_number(params[:id]).first
     if @phone.destroy
-      redirect_to meet_phones_path(current_meet), notice: "Pomyślnie usunięto #{@phone.phone_number}."
+      redirect_to meet_phones_url(current_meet), notice: "Pomyślnie usunięto #{@phone.phone_number}."
     else
-      redirect_to meet_phones_path(current_meet), alert: "Nie udało się usunąć: #{@phone.phone_number}."
+      redirect_to meet_phones_url(current_meet), alert: "Nie udało się usunąć: #{@phone.phone_number}."
     end
   end
 

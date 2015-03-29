@@ -1,7 +1,7 @@
 .page-header
   %h1
     Transmisje
-    = link_to 'Dodaj Nową', new_admin_meet_path, class: 'btn btn-success pull-right'
+    = link_to 'Dodaj Nową', new_admin_meet_url, class: 'btn btn-success pull-right'
 
 %table.table.table-striped
 
@@ -33,5 +33,5 @@
         %strong= meet.pin
       %td= meet.active ? 'Włączona' : 'Wyłączona'
       %td
-        = link_to 'edycja', edit_admin_meet_path(meet), class: 'btn btn-xs btn-primary'
-        = link_to 'usuń', admin_meet_path(meet), class: 'btn btn-xs btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie transmisję #{meet.name}. Potwierdź." }
+        = link_to 'edycja', edit_admin_meet_url(meet), class: 'btn btn-xs btn-primary'
+        = link_to 'usuń', admin_meet_url(meet), class: 'btn btn-xs btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie transmisję #{meet.name}. Potwierdź." }

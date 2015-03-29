@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     meet = Meet.where(id: params[:session][:meet_id]).web_pin(params[:session][:web_pin]).first
     if meet.present?
       session[:meet] = meet.token
-      redirect_to meet_path(meet)
+      redirect_to meet_url(meet)
     else
       redirect_to :back, alert: 'Niepoprawny Pin Lub Brak Transmisji.'
     end
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to root_path, notice: 'Zostałeś poprawnie wylogowany!'
+    redirect_to root_url, notice: 'Zostałeś poprawnie wylogowany!'
   end
 
 end

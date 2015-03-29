@@ -1,7 +1,7 @@
 .page-header
   %h1
     Telefony
-    = link_to 'Dodaj Nowy', new_meet_phone_path(current_meet), class: 'btn btn-success pull-right'
+    = link_to 'Dodaj Nowy', new_meet_phone_url(current_meet), class: 'btn btn-success pull-right'
 
 %table.table.table-striped
 
@@ -24,5 +24,5 @@
             %span.ml10= key_map.name
             %br
       %td
-        = link_to 'edycja', edit_meet_phone_path(current_meet, phone), class: 'btn btn-primary'
-        = link_to 'usuń', meet_phone_path(current_meet, phone), class: 'btn btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie telefon #{phone.phone_number}. Potwierdź." }
+        = link_to 'edycja', edit_meet_phone_url(current_meet, phone), class: 'btn btn-primary'
+        = link_to 'usuń', meet_phone_url(current_meet, phone), class: 'btn btn-danger safe-delete ml30', data: { delete_text_info: "Ta akcja usunie telefon #{phone.phone_number}. Potwierdź." }

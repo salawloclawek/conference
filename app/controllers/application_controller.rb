@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authorized
-    redirect_to root_path, alert: 'Nie masz uprawnień do tej akcji.'
+    redirect_to root_url, alert: 'Nie masz uprawnień do tej akcji.'
   end
 
   def require_meet!

@@ -24,12 +24,12 @@
         .navbar-collapse.collapse.navbar-responsive-collapse
           %ul.nav.navbar-nav
             - if current_meet
-              %li= link_to "Transmisja: #{current_meet.name}", meet_path(current_meet)
-              %li= link_to "Telefony - Ustawienia", meet_phones_path(current_meet)
+              %li= link_to "Transmisja: #{current_meet.name}", meet_url(current_meet)
+              %li= link_to "Telefony - Ustawienia", meet_phones_url(current_meet)
 
           %ul.nav.navbar-nav.navbar-right
             - if current_meet
-              %li.pull-right= link_to "<i class='fa fa-power-off'></i>".html_safe, session_path, method: :delete, title: 'Wyloguj się'
+              %li.pull-right= link_to "<i class='fa fa-power-off'></i>".html_safe, session_url, method: :delete, title: 'Wyloguj się'
     .container
       .row
         .col-lg-12
