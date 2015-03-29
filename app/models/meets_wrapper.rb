@@ -38,8 +38,7 @@ class MeetsWrapper < AmiWrapper
 
   def self.unmute(conference, user)
     #connection.command("confbridge mute #{conference} participants")
-    #connection.command("confbridge mute #{conference} all") # admin too
-
+    connection.command("confbridge mute #{conference} all") # admin too
     connection.command("confbridge unmute #{conference} #{PhoneWrapper.full_identifier(user)}")
   end
 
