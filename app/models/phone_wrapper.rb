@@ -27,10 +27,13 @@ class PhoneWrapper
 
   end
 
+  def self.full_identifier(identifier)
+    "SIP/#{identifier}"
+  end
 
   def initialize(callerid, identifier_in_conf, mute_status)
 
-    self.identifier_in_conf = identifier_in_conf
+    self.identifier_in_conf = identifier_in_conf.slice(4..-1)
     self.mute_status = mute_status
 
     phone = Phone.phone_number(callerid).first
