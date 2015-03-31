@@ -33,12 +33,16 @@ class MeetsWrapper < AmiWrapper
   end
 
   def self.mute(conference, user, options)
+    if(options[:unmute_admin])
+      admins(conference).each do |sip|
+        connection.command("confbridge unmute #{conference} #{sip}")
+      end
+    end
     connection.command("confbridge mute #{conference} #{PhoneWrapper.full_identifier(user)}")
     connection.public_execute('PlayDTMF', 'Channel' => PhoneWrapper.full_identifier(user), 'Digit' => '9') if options[:beep]
   end
 
   def self.unmute(conference, user, options)
-    #connection.command("confbridge mute #{conference} participants")
     connection.command("confbridge mute #{conference} all") # admin too
     connection.public_execute('PlayDTMF', 'Channel' => PhoneWrapper.full_identifier(user), 'Digit' => '1') if options[:beep]
     connection.command("confbridge unmute #{conference} #{PhoneWrapper.full_identifier(user)}")
@@ -84,6 +88,23 @@ class MeetsWrapper < AmiWrapper
       end
 
     end
+  end
+
+  def self.admins(meet_phone_number)
+    parsed = select_lines(connection.command("confbridge list #{meet_phone_number}").data, '==', '--END COMMAND--', 'No conference')
+    parsed = parsed.map do |user|
+      user.split(" ")[0] if user.include?('admin')
+    end
+    parsed.compact
+    parsed.compact
+  end
+
+  def self.participants(meet_phone_number)
+    parsed = select_lines(connection.command("confbridge list #{meet_phone_number}").data, '==', '--END COMMAND--', 'No conference')
+    parsed = parsed.map do |user|
+      user.split(" ")[0] if user.include?('user')
+    end
+    parsed.compact
   end
 
   def self.select_lines(response, after_string, before_string, no_results_string)

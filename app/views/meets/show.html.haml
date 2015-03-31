@@ -19,10 +19,10 @@
 
         - if user.mute_status
           = image_tag('mute-icon.png', width: 40, height: 40)
-          = link_to 'Aktywuj', unmute_phone_url(meet_id: current_meet, id: user.identifier_in_conf, beep: !user.admin ? true : nil), class: 'btn btn-xs btn-success pull-right mic-set'
+          = link_to 'Aktywuj', unmute_phone_url(meet_id: current_meet, id: user.identifier_in_conf, beep: user.admin ? nil : true), class: 'btn btn-xs btn-success pull-right mic-set'
         - else
           = image_tag('sound-icon.png', width: 40, height: 40)
-          = link_to 'Wycisz', mute_phone_url(meet_id: current_meet, id: user.identifier_in_conf, beep: !user.admin ? true : nil), class: 'btn btn-xs btn-warning pull-right mic-set'
+          = link_to 'Wycisz', mute_phone_url(meet_id: current_meet, id: user.identifier_in_conf, beep: user.admin ? nil : true, unmute_admin: user.admin ? nil :true), class: 'btn btn-xs btn-warning pull-right mic-set'
 
         - if user.phone_object.present?
           - user.phone_object.key_maps.each do |key_map|
@@ -42,4 +42,4 @@
       %h3
         = current_meet.name
         %br
-        %small (#{current_meet.sip_number}) nikt jeszcze nie dołączył
+        %small (#{phone_number(current_meet.sip_number)}) nikt jeszcze nie dołączył
