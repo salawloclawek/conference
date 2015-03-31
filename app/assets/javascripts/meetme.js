@@ -25,7 +25,7 @@ var MeetMe = {
 
     updateShow: function(){
         var _this = this;
-        div = $('#meet')
+        div = $('#meet');
         $.ajax({
             url: div.data('href'),
             method: "GET",
@@ -46,7 +46,7 @@ var MeetMe = {
             MeetMe.updateShow();
         }
         else {
-            _this.timer = setTimeout(function(){MeetMe.updateShow(); }, 1000);
+            _this.timer = setTimeout(function(){MeetMe.updateShow(); }, parseInt($('#meet').data('refresh-rate')));
         }
 
     },
