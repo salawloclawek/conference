@@ -3,7 +3,7 @@
   .page-header
     %h5= @meet.name
 
-  %ul.nav.nav-stacked
+  %ul.nav.nav-stacked.clearfix
     - admin_mute = false
 
     - @meet.users.each do |user|
@@ -14,7 +14,7 @@
       - if user.phone_object.present?
         - user.phone_object.key_maps.each do |key_map|
           - if key_map.name.present? and key_map.participate
-            %li.mt10.mb10
+            %li.mt10.mb10.mr10.pull-left
               - if key_map.participate == 'cancel'
                 %label.line-through.fts16
                   = image_tag('hand-x.png', width: 30, height: 30)
