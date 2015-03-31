@@ -4,18 +4,30 @@
     %h5= @meet.name
 
   %ul.nav.nav-stacked
+    - admin_mute = false
 
     - @meet.users.each do |user|
+
+      - if user.admin and  user.mute_status
+        - admin_mute = true
 
       - if user.phone_object.present?
         - user.phone_object.key_maps.each do |key_map|
           - if key_map.name.present? and key_map.participate
             %li.mt10.mb10
               - if key_map.participate == 'cancel'
-                %label.line-through
-                  = image_tag('hand-x.png', width: 20, height: 20)
+                %label.line-through.fts16
+                  = image_tag('hand-x.png', width: 30, height: 30)
                   = key_map.name
               - else
-                %label
-                  = image_tag('hand.png', width: 20, height: 20)
+                %label.fts16
+                  = image_tag('hand.png', width: 30, height: 30)
                   = key_map.name
+
+  - if admin_mute
+    .row
+      .col-xs-12.col-sm-6.alert.alert-warning
+        %b
+          Jesteś wyciszony w transmisji.
+          %br
+          Poczekaj, aż ten komunikat zniknie.

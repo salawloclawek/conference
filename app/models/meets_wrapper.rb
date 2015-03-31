@@ -32,13 +32,15 @@ class MeetsWrapper < AmiWrapper
     parse_users(response)
   end
 
-  def self.mute(conference, user)
+  def self.mute(conference, user, options)
     connection.command("confbridge mute #{conference} #{PhoneWrapper.full_identifier(user)}")
+    connection.public_execute('PlayDTMF', 'Channel' => PhoneWrapper.full_identifier(user), 'Digit' => '9') if options[:beep]
   end
 
-  def self.unmute(conference, user)
+  def self.unmute(conference, user, options)
     #connection.command("confbridge mute #{conference} participants")
     connection.command("confbridge mute #{conference} all") # admin too
+    connection.public_execute('PlayDTMF', 'Channel' => PhoneWrapper.full_identifier(user), 'Digit' => '1') if options[:beep]
     connection.command("confbridge unmute #{conference} #{PhoneWrapper.full_identifier(user)}")
   end
 

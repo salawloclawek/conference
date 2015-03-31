@@ -10,6 +10,10 @@
     text-decoration: line-through;
 }
 
+.fts16 {
+    font-size: 16px;
+}
+
 .w250 { max-width: 250px; }
 .w200 { max-width: 200px; }
 .w150 { max-width: 150px; }
