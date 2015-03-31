@@ -4,6 +4,7 @@
     %h5= @meet.name
 
   %ul.nav.nav-stacked.clearfix
+    %li.pull-right
     - admin_mute = false
 
     - @meet.users.each do |user|
