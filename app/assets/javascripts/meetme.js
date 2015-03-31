@@ -9,13 +9,19 @@ var MeetMe = {
             }
         });
 
+        $(document).on('mousedown', '.mic-set', function(e){
+           _this.stopLoop();
+           _this.startLoop();
+        });
+
         $(document).on('click', '.mic-set', function(e){
+            _this.stopLoop();
             e.preventDefault();
             a = $(this);
             $.ajax({
                 url: a.attr('href'),
                 method: "PATCH",
-                success: function(data){
+                complete: function(data){
                     _this.startLoop(true);
                 }
             })
@@ -29,11 +35,13 @@ var MeetMe = {
         $.ajax({
             url: div.data('href'),
             method: "GET",
-            success: function(data){
-                div.replaceWith(data);
-                _this.startLoop();
+            ifModified: true,
+            success: function(data, status, xhr){
+                if(xhr.status == 200) {
+                    div.replaceWith(data);
+                }
             },
-            error: function(){
+            complete: function(){
                 _this.startLoop();
             }
         })

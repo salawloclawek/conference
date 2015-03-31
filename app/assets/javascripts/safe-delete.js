@@ -2,8 +2,14 @@ var SafeDelete = {
 
     initialize: function(){
 
-        $(document).on('click', '.safe-delete', function(e){
 
+        $(document).on('mousedown', '.safe-delete', function(e){
+            MeetMe.stopLoop();
+            MeetMe.startLoop();
+        });
+
+        $(document).on('click', '.safe-delete', function(e){
+            MeetMe.stopLoop();
             e.preventDefault();
 
             invoker = $(this);
@@ -24,6 +30,7 @@ var SafeDelete = {
             delete_text_info.html(invoker.data('delete-text-info'));
             modal.modal('show');
 
+            MeetMe.startLoop();
         });
 
         $(document).on('click', '.real-delete', function(e) {
