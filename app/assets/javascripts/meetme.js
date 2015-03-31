@@ -11,7 +11,7 @@ var MeetMe = {
 
         $(document).on('mousedown', '.mic-set', function(e){
            _this.stopLoop();
-           _this.startLoop();
+           _this.startLoop(2000);
         });
 
         $(document).on('click', '.mic-set', function(e){
@@ -22,7 +22,7 @@ var MeetMe = {
                 url: a.attr('href'),
                 method: "PATCH",
                 complete: function(data){
-                    _this.startLoop(true);
+                    _this.startLoop(1);
                 }
             })
         })
@@ -35,11 +35,8 @@ var MeetMe = {
         $.ajax({
             url: div.data('href'),
             method: "GET",
-            ifModified: true,
             success: function(data, status, xhr){
-                if(xhr.status == 200) {
-                    div.replaceWith(data);
-                }
+                div.replaceWith(data);
             },
             complete: function(){
                 _this.startLoop();
@@ -49,12 +46,12 @@ var MeetMe = {
 
     startLoop: function(now){
         var _this = this;
+        _this.stopLoop();
         if(typeof(now) != 'undefined') {
-            _this.stopLoop();
-            MeetMe.updateShow();
+            _this.timer = setTimeout(function(){MeetMe.updateShow();}, now);
         }
         else {
-            _this.timer = setTimeout(function(){MeetMe.updateShow(); }, parseInt($('#meet').data('refresh-rate')));
+            _this.timer = setTimeout(function(){MeetMe.updateShow();}, parseInt($('#meet').data('refresh-rate')));
         }
 
     },

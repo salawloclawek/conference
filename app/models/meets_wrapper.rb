@@ -86,8 +86,11 @@ class MeetsWrapper < AmiWrapper
       else
         PhoneWrapper.new(slice_caller_id(data.last), data.first, data[1].to_s.include?('m'))
       end
-
     end
+    parsed = parsed.sort{ |a, b| (b.admin ? 1 : 0) <=> (a.admin ? 1 : 0) }
+
+    parsed
+
   end
 
   def self.admins(meet_phone_number)

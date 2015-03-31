@@ -5,7 +5,7 @@ var SafeDelete = {
 
         $(document).on('mousedown', '.safe-delete', function(e){
             MeetMe.stopLoop();
-            MeetMe.startLoop();
+            MeetMe.startLoop(2000);
         });
 
         $(document).on('click', '.safe-delete', function(e){
