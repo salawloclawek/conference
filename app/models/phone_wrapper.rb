@@ -22,7 +22,7 @@ class PhoneWrapper
     elsif Rails.cache.read("#{callerid}9")
       Rails.cache.write("#{callerid}count", digit, expires_in: 60*60*3)
     else
-      Rails.cache.write(key, true, expires_in: 8)
+      Rails.cache.write(key, true, expires_in: 15)
     end
 
   end
