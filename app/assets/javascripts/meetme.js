@@ -6,6 +6,7 @@ var MeetMe = {
         $(document).ready(function(){
             if($('#meet').length > 0) {
                 _this.startLoop();
+                _this.startGeneralLoop();
             }
         });
 
@@ -56,12 +57,22 @@ var MeetMe = {
 
     },
 
+    startGeneralLoop: function() {
+        var _this = this;
+        _this.generalTimer = setTimeout(function(){ MeetMe.reloadPage(); }, 5000);
+    },
+
+    reloadPage: function() {
+        window.location.reload(true);
+    },
+
     stopLoop: function(){
         var _this = this;
         try{clearTimeout(_this.timer)}catch(e){}
     },
 
-    timer: false
+    timer: false,
+    generalTimer: false
 
 
 
