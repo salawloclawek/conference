@@ -59,7 +59,7 @@ var MeetMe = {
 
     startGeneralLoop: function() {
         var _this = this;
-        _this.generalTimer = setTimeout(function(){ MeetMe.reloadPage(); }, 5000);
+        _this.generalTimer = setTimeout(function(){ MeetMe.reloadPage(); }, 1000*60*15);
     },
 
     reloadPage: function() {
